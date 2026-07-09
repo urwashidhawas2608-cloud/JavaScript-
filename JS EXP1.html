@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS & JavaScript Demo</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .box{
+            width: 60%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #B39DDB; /* Light Purple */
+            border: 2px solid #5E35B1;
+            border-radius: 12px;
+            box-shadow: 3px 3px 10px gray;
+        }
+
+        h2{
+            color: white;
+        }
+
+        p{
+            color: white;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        button{
+            background-color: white;
+            color: #5E35B1;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background-color: #eeeeee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Inline CSS -->
+    <div class="box">
+        <h2 style="color:white;">Welcome to Inline CSS</h2>
+        <p>
+            Name: <b>Urwashi Dhawas</b><br>
+            PRN: <b>24070521154</b>
+        </p>
+        <button onclick="showMessage()">Click Here</button>
+    </div>
+
+    <!-- Internal CSS -->
+    <div class="box">
+        <h2>Welcome to Internal CSS</h2>
+        <p>
+            Name: <b>Urwashi Dhawas</b><br>
+            PRN: <b>24070521154</b>
+        </p>
+        <button onclick="showMessage()">Click Here</button>
+    </div>
+
+    <!-- External JavaScript -->
+    <div class="box">
+        <h2>Welcome to External JavaScript</h2>
+        <p>
+            Name: <b>Urwashi Dhawas</b><br>
+            PRN: <b>24070521154</b>
+        </p>
+        <button onclick="showMessage()">Click Here</button>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
