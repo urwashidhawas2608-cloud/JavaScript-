@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f4f6f8;
+            color: #1f2937;
+            padding: 20px;
+        }
+
+        .container {
+            width: 470px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 42px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.10);
+            border: 1px solid #e5e7eb;
+        }
+
+        /* HEADER */
+
+        .security-icon {
+            width: 58px;
+            height: 58px;
+            background: #fff1f2;
+            color: #b91c1c;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+            margin-bottom: 22px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* INPUT */
+
+        .input-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            width: 100%;
+            height: 52px;
+            padding: 0 48px 0 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            outline: none;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .password-box input:focus {
+            border-color: #b91c1c;
+            box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.08);
+        }
+
+        .toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 17px;
+            color: #6b7280;
+        }
+
+        /* STRENGTH */
+
+        .strength-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            margin-bottom: 9px;
+        }
+
+        .strength-header span:first-child {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        #strengthText {
+            font-size: 13px;
+            font-weight: 700;
+            color: #9ca3af;
+        }
+
+        .strength-bar {
+            width: 100%;
+            height: 7px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        #strengthFill {
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+            transition: 0.3s ease;
+            background: #d1d5db;
+        }
+
+        /* REQUIREMENTS */
+
+        .requirements {
+            margin-top: 28px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 1px solid #eef0f2;
+        }
+
+        .requirements h3 {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #374151;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 11px 0;
+            font-size: 13px;
+            color: #6b7280;
+            transition: 0.2s;
+        }
+
+        .check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 11px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .requirement.valid {
+            color: #15803d;
+        }
+
+        .requirement.valid .check {
+            background: #16a34a;
+        }
+
+        /* MESSAGE */
+
+        #message {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            min-height: 20px;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            margin-top: 28px;
+            padding-top: 18px;
+            border-top: 1px solid #eeeeee;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 11px;
+        }
+
+        @media (max-width: 520px) {
+            .container {
+                width: 100%;
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="security-icon">
+            🔐
+        </div>
+
+        <h1>Password Strength</h1>
+
+        <p class="subtitle">
+            Create a strong password to keep your account
+            protected from unauthorized access.
+        </p>
+
+
+        <label class="input-label">
+            Enter Password
+        </label>
+
+        <div class="password-box">
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                oninput="checkPassword()"
+            >
+
+            <button
+                class="toggle"
+                onclick="togglePassword()"
+                type="button"
+            >
+                👁
+            </button>
+
+        </div>
+
+
+        <!-- STRENGTH -->
+
+        <div class="strength-header">
+
+            <span>Password Strength</span>
+
+            <span id="strengthText">
+                Not Entered
+            </span>
+
+        </div>
+
+        <div class="strength-bar">
+            <div id="strengthFill"></div>
+        </div>
+
+
+        <!-- REQUIREMENTS -->
+
+        <div class="requirements">
+
+            <h3>Password Requirements</h3>
+
+            <div class="requirement" id="length">
+                <span class="check">✓</span>
+                <span>At least 8 characters</span>
+            </div>
+
+            <div class="requirement" id="uppercase">
+                <span class="check">✓</span>
+                <span>Contains an uppercase letter</span>
+            </div>
+
+            <div class="requirement" id="lowercase">
+                <span class="check">✓</span>
+                <span>Contains a lowercase letter</span>
+            </div>
+
+            <div class="requirement" id="number">
+                <span class="check">✓</span>
+                <span>Contains a number</span>
+            </div>
+
+            <div class="requirement" id="special">
+                <span class="check">✓</span>
+                <span>Contains a special character</span>
+            </div>
+
+        </div>
+
+
+        <div id="message"></div>
+
+
+        <div class="footer">
+            Password Security Checker
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function checkPassword() {
+
+            const password =
+                document.getElementById("password").value;
+
+            const fill =
+                document.getElementById("strengthFill");
+
+            const text =
+                document.getElementById("strengthText");
+
+            const message =
+                document.getElementById("message");
+
+
+            if (password.length === 0) {
+
+                fill.style.width = "0%";
+                text.textContent = "Not Entered";
+                text.style.color = "#9ca3af";
+                message.textContent = "";
+
+                resetRequirements();
+
+                return;
+            }
+
+
+            let score = 0;
+
+
+            // CHECK LENGTH
+
+            if (password.length >= 8) {
+
+                score++;
+                setValid("length");
+
+            } else {
+
+                setInvalid("length");
+            }
+
+
+            // UPPERCASE
+
+            if (/[A-Z]/.test(password)) {
+
+                score++;
+                setValid("uppercase");
+
+            } else {
+
+                setInvalid("uppercase");
+            }
+
+
+            // LOWERCASE
+
+            if (/[a-z]/.test(password)) {
+
+                score++;
+                setValid("lowercase");
+
+            } else {
+
+                setInvalid("lowercase");
+            }
+
+
+            // NUMBER
+
+            if (/[0-9]/.test(password)) {
+
+                score++;
+                setValid("number");
+
+            } else {
+
+                setInvalid("number");
+            }
+
+
+            // SPECIAL CHARACTER
+
+            if (/[^A-Za-z0-9]/.test(password)) {
+
+                score++;
+                setValid("special");
+
+            } else {
+
+                setInvalid("special");
+            }
+
+
+            // DISPLAY STRENGTH
+
+            if (score <= 2) {
+
+                fill.style.width = "30%";
+                fill.style.background = "#dc2626";
+
+                text.textContent = "Weak";
+                text.style.color = "#dc2626";
+
+                message.textContent =
+                    "Your password needs improvement.";
+                message.style.color = "#dc2626";
+
+            }
+
+            else if (score === 3 || score === 4) {
+
+                fill.style.width = "65%";
+                fill.style.background = "#d97706";
+
+                text.textContent = "Medium";
+                text.style.color = "#d97706";
+
+                message.textContent =
+                    "Your password is moderately strong.";
+                message.style.color = "#d97706";
+
+            }
+
+            else {
+
+                fill.style.width = "100%";
+                fill.style.background = "#16a34a";
+
+                text.textContent = "Strong";
+                text.style.color = "#16a34a";
+
+                message.textContent =
+                    "Excellent! Your password is strong.";
+                message.style.color = "#16a34a";
+            }
+        }
+
+
+        function setValid(id) {
+
+            document
+                .getElementById(id)
+                .classList.add("valid");
+        }
+
+
+        function setInvalid(id) {
+
+            document
+                .getElementById(id)
+                .classList.remove("valid");
+        }
+
+
+        function resetRequirements() {
+
+            document
+                .querySelectorAll(".requirement")
+                .forEach(item => {
+                    item.classList.remove("valid");
+                });
+        }
+
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".toggle");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                button.textContent = "🙈";
+
+            } else {
+
+                password.type = "password";
+                button.textContent = "👁";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
