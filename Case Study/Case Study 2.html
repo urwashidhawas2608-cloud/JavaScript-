@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Professional Billing System</title>
+
+    <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+
+            background: #f1f3f6;
+
+            color: #172033;
+
+            min-height: 100vh;
+
+            padding: 35px 20px;
+        }
+
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .invoice-container {
+
+            width: 100%;
+
+            max-width: 860px;
+
+            margin: auto;
+
+            background: white;
+
+            box-shadow:
+                0 15px 45px rgba(18, 32, 55, 0.12);
+
+            border-radius: 3px;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .invoice-header {
+
+            background: #10192b;
+
+            color: white;
+
+            min-height: 105px;
+
+            padding: 25px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+        }
+
+
+        .company-title h1 {
+
+            font-size: 21px;
+
+            letter-spacing: 0.5px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .company-title p {
+
+            font-size: 11px;
+
+            color: #b6c0d1;
+        }
+
+
+        .invoice-title {
+
+            text-align: right;
+        }
+
+
+        .invoice-title h2 {
+
+            font-size: 24px;
+
+            letter-spacing: 0.5px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .invoice-title p {
+
+            font-size: 11px;
+
+            color: #c2c9d4;
+        }
+
+
+        /* =========================================
+           CONTENT
+        ========================================= */
+
+        .invoice-body {
+
+            padding: 25px;
+        }
+
+
+        /* =========================================
+           SUCCESS MESSAGE
+        ========================================= */
+
+        .success-message {
+
+            background: #effcf6;
+
+            border: 1px solid #a7efd0;
+
+            color: #087b59;
+
+            text-align: center;
+
+            padding: 10px;
+
+            font-size: 11px;
+
+            border-radius: 5px;
+
+            margin-bottom: 20px;
+
+            display: none;
+        }
+
+
+        .success-message.show {
+
+            display: block;
+        }
+
+
+        /* =========================================
+           FORM GRID
+        ========================================= */
+
+        .two-column {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 25px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .section-title {
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            color: #657085;
+
+            letter-spacing: 0.7px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 12px;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 12px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 10px;
+
+            color: #596579;
+
+            margin-bottom: 5px;
+        }
+
+
+        input,
+        textarea,
+        select {
+
+            width: 100%;
+
+            border: 1px solid #d3d9e2;
+
+            background: white;
+
+            border-radius: 5px;
+
+            padding: 10px 11px;
+
+            font-size: 11px;
+
+            color: #1c2637;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+
+            border-color: #3167d8;
+
+            box-shadow:
+                0 0 0 2px rgba(49, 103, 216, 0.08);
+        }
+
+
+        textarea {
+
+            min-height: 80px;
+
+            resize: vertical;
+        }
+
+
+        /* =========================================
+           DIVIDER
+        ========================================= */
+
+        .divider {
+
+            height: 1px;
+
+            background: #e4e7ec;
+
+            margin: 15px 0 22px;
+        }
+
+
+        /* =========================================
+           ITEMS HEADER
+        ========================================= */
+
+        .items-heading {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 10px;
+        }
+
+
+        .items-heading h3 {
+
+            font-size: 13px;
+
+            color: #172033;
+        }
+
+
+        .add-item {
+
+            border: none;
+
+            background: #2864d7;
+
+            color: white;
+
+            padding: 8px 13px;
+
+            border-radius: 5px;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .add-item:hover {
+
+            background: #174fb8;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================
+           ITEMS TABLE
+        ========================================= */
+
+        .items-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            table-layout: fixed;
+        }
+
+
+        .items-table th {
+
+            background: #f8f9fb;
+
+            color: #5b687d;
+
+            font-size: 9px;
+
+            text-align: left;
+
+            padding: 10px 7px;
+
+            border-bottom: 1px solid #e1e5eb;
+
+            text-transform: uppercase;
+        }
+
+
+        .items-table td {
+
+            padding: 8px 7px;
+
+            border-bottom: 1px solid #e8ebef;
+
+            vertical-align: middle;
+        }
+
+
+        .items-table th:nth-child(1) {
+            width: 36%;
+        }
+
+        .items-table th:nth-child(2) {
+            width: 14%;
+        }
+
+        .items-table th:nth-child(3) {
+            width: 18%;
+        }
+
+        .items-table th:nth-child(4) {
+            width: 12%;
+        }
+
+        .items-table th:nth-child(5) {
+            width: 16%;
+        }
+
+        .items-table th:nth-child(6) {
+            width: 4%;
+        }
+
+
+        .items-table input,
+        .items-table select {
+
+            padding: 8px;
+
+            font-size: 10px;
+        }
+
+
+        .amount {
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            color: #1d2738;
+
+            white-space: nowrap;
+        }
+
+
+        .delete-item {
+
+            width: 24px;
+
+            height: 24px;
+
+            border: none;
+
+            background: #ffe7e7;
+
+            color: #e74a4a;
+
+            border-radius: 4px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+        }
+
+
+        .delete-item:hover {
+
+            background: #ffd3d3;
+        }
+
+
+        /* =========================================
+           BOTTOM SECTION
+        ========================================= */
+
+        .bottom-section {
+
+            display: grid;
+
+            grid-template-columns: 1fr 265px;
+
+            gap: 35px;
+
+            margin-top: 25px;
+        }
+
+
+        .notes-title {
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            color: #657085;
+
+            letter-spacing: 0.7px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================================
+           TOTALS
+        ========================================= */
+
+        .totals {
+
+            width: 100%;
+        }
+
+
+        .total-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 7px 0;
+
+            font-size: 10px;
+
+            color: #667085;
+        }
+
+
+        .total-row strong {
+
+            color: #263247;
+
+            font-weight: 600;
+        }
+
+
+        .discount-input {
+
+            width: 72px;
+
+            padding: 6px 8px;
+
+            text-align: right;
+        }
+
+
+        .tax-row {
+
+            color: #667085;
+        }
+
+
+        .total-divider {
+
+            height: 1px;
+
+            background: #172033;
+
+            margin: 5px 0 8px;
+        }
+
+
+        .grand-total {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            color: #111a2b;
+
+            padding-top: 5px;
+        }
+
+
+        .grand-total span:last-child {
+
+            color: #111a2b;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .action-buttons {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #e5e8ed;
+        }
+
+
+        .clear-btn {
+
+            background: white;
+
+            color: #5d6676;
+
+            border: 1px solid #cdd3dc;
+
+            padding: 10px 25px;
+
+            border-radius: 5px;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+
+        .clear-btn:hover {
+
+            background: #f5f6f8;
+        }
+
+
+        .generate-btn {
+
+            background: #10192b;
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 24px;
+
+            border-radius: 5px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .generate-btn:hover {
+
+            background: #1f3150;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================
+           GENERATED BILL
+        ========================================= */
+
+        #generatedBill {
+
+            display: none;
+        }
+
+
+        .generated-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        .generated-header h2 {
+
+            font-size: 20px;
+
+            color: #172033;
+        }
+
+
+        .print-btn {
+
+            background: #2864d7;
+
+            border: none;
+
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+        }
+
+
+        .bill-paper {
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            padding: 35px;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.07);
+        }
+
+
+        .bill-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            border-bottom: 2px solid #10192b;
+
+            padding-bottom: 18px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .bill-company h1 {
+
+            color: #10192b;
+
+            font-size: 22px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .bill-company p,
+        .bill-invoice p {
+
+            color: #667085;
+
+            font-size: 10px;
+
+            margin-top: 3px;
+        }
+
+
+        .bill-invoice {
+
+            text-align: right;
+        }
+
+
+        .bill-invoice h2 {
+
+            font-size: 23px;
+
+            color: #10192b;
+        }
+
+
+        .bill-info {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 25px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .bill-info h4 {
+
+            color: #2864d7;
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+
+        .bill-info p {
+
+            font-size: 10px;
+
+            margin: 3px 0;
+
+            color: #3d4655;
+        }
+
+
+        .bill-items {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 15px;
+        }
+
+
+        .bill-items th {
+
+            background: #10192b;
+
+            color: white;
+
+            padding: 10px;
+
+            font-size: 9px;
+
+            text-align: left;
+        }
+
+
+        .bill-items td {
+
+            padding: 10px;
+
+            border-bottom: 1px solid #e5e8ed;
+
+            font-size: 10px;
+        }
+
+
+        .bill-items td:last-child,
+        .bill-items th:last-child {
+
+            text-align: right;
+        }
+
+
+        .bill-summary {
+
+            margin-left: auto;
+
+            width: 280px;
+
+            margin-top: 20px;
+        }
+
+
+        .summary-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 6px 0;
+
+            font-size: 10px;
+
+            color: #667085;
+        }
+
+
+        .summary-total {
+
+            border-top: 2px solid #10192b;
+
+            padding-top: 10px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            color: #10192b;
+        }
+
+
+        .bill-note {
+
+            margin-top: 30px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #e5e8ed;
+
+            font-size: 10px;
+
+            color: #667085;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media(max-width: 700px) {
+
+            body {
+                padding: 10px;
+            }
+
+
+            .invoice-header {
+
+                flex-direction: column;
+
+                gap: 20px;
+            }
+
+
+            .invoice-title {
+
+                text-align: left;
+            }
+
+
+            .two-column {
+
+                grid-template-columns: 1fr;
+
+                gap: 10px;
+            }
+
+
+            .bottom-section {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .items-table {
+
+                min-width: 700px;
+            }
+
+
+            .items-wrapper {
+
+                overflow-x: auto;
+            }
+
+
+            .action-buttons {
+
+                justify-content: stretch;
+            }
+
+
+            .action-buttons button {
+
+                flex: 1;
+            }
+
+
+            .bill-paper {
+
+                padding: 20px;
+            }
+
+        }
+
+
+        /* =========================================
+           PRINT
+        ========================================= */
+
+        @media print {
+
+            body {
+
+                background: white;
+
+                padding: 0;
+            }
+
+
+            .invoice-container {
+
+                box-shadow: none;
+
+                max-width: 100%;
+
+                border-radius: 0;
+            }
+
+
+            #invoiceForm,
+            .generated-header {
+
+                display: none !important;
+            }
+
+
+            #generatedBill {
+
+                display: block !important;
+            }
+
+
+            .bill-paper {
+
+                border: none;
+
+                box-shadow: none;
+
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================================
+     MAIN INVOICE FORM
+================================================= -->
+
+<div class="invoice-container" id="invoiceForm">
+
+
+    <!-- HEADER -->
+
+    <div class="invoice-header">
+
+        <div class="company-title">
+
+            <h1 id="headerCompany">
+                YOUR COMPANY
+            </h1>
+
+            <p>
+                Professional Billing & Invoicing
+            </p>
+
+        </div>
+
+
+        <div class="invoice-title">
+
+            <h2>
+                INVOICE
+            </h2>
+
+            <p id="headerInvoiceNumber">
+                INV-1001
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- BODY -->
+
+    <div class="invoice-body">
+
+
+        <div
+            class="success-message"
+            id="successMessage">
+
+            Invoice generated successfully.
+
+        </div>
+
+
+        <!-- =========================================
+             BILL FROM / BILL TO
+        ========================================== -->
+
+        <div class="two-column">
+
+
+            <!-- BILL FROM -->
+
+            <div>
+
+                <div class="section-title">
+                    Bill From
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Company Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="companyName"
+                        placeholder="Your Company Name"
+                        oninput="updateHeader()">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        GSTIN
+                    </label>
+
+                    <input
+                        type="text"
+                        id="companyGST"
+                        placeholder="22AAAAA0000A1Z5">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Company Address
+                    </label>
+
+                    <input
+                        type="text"
+                        id="companyAddress"
+                        placeholder="Company address">
+
+                </div>
+
+            </div>
+
+
+            <!-- BILL TO -->
+
+            <div>
+
+                <div class="section-title">
+                    Bill To
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Customer Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerName"
+                        placeholder="Customer name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Customer GSTIN
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerGST"
+                        placeholder="Optional">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Invoice Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="invoiceDate">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="divider"></div>
+
+
+        <!-- =========================================
+             INVOICE ITEMS
+        ========================================== -->
+
+        <div class="items-heading">
+
+            <h3>
+                Invoice Items
+            </h3>
+
+            <button
+                class="add-item"
+                onclick="addItem()">
+
+                + Add Item
+
+            </button>
+
+        </div>
+
+
+        <div class="items-wrapper">
+
+            <table class="items-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Item Description
+                        </th>
+
+                        <th>
+                            Qty
+                        </th>
+
+                        <th>
+                            Rate
+                        </th>
+
+                        <th>
+                            GST %
+                        </th>
+
+                        <th>
+                            Amount
+                        </th>
+
+                        <th></th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="itemsBody">
+
+                    <tr class="item-row">
+
+                        <td>
+
+                            <input
+                                type="text"
+                                class="item-name"
+                                placeholder="Item name">
+
+                        </td>
+
+
+                        <td>
+
+                            <input
+                                type="number"
+                                class="item-qty"
+                                value="1"
+                                min="1"
+                                oninput="calculateTotals()">
+
+                        </td>
+
+
+                        <td>
+
+                            <input
+                                type="number"
+                                class="item-rate"
+                                value="0"
+                                min="0"
+                                step="0.01"
+                                oninput="calculateTotals()">
+
+                        </td>
+
+
+                        <td>
+
+                            <select
+                                class="item-gst"
+                                onchange="calculateTotals()">
+
+                                <option value="0">
+                                    0%
+                                </option>
+
+                                <option value="5">
+                                    5%
+                                </option>
+
+                                <option value="12">
+                                    12%
+                                </option>
+
+                                <option value="18" selected>
+                                    18%
+                                </option>
+
+                                <option value="28">
+                                    28%
+                                </option>
+
+                            </select>
+
+                        </td>
+
+
+                        <td class="amount">
+                            ₹0.00
+                        </td>
+
+
+                        <td>
+
+                            <button
+                                class="delete-item"
+                                onclick="deleteItem(this)">
+
+                                ×
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- =========================================
+             NOTES + TOTALS
+        ========================================== -->
+
+        <div class="bottom-section">
+
+
+            <!-- NOTES -->
+
+            <div>
+
+                <div class="notes-title">
+                    Notes
+                </div>
+
+                <textarea
+                    id="notes"
+                    placeholder="Thank you for your business..."></textarea>
+
+            </div>
+
+
+            <!-- TOTALS -->
+
+            <div class="totals">
+
+
+                <div class="total-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong id="subtotal">
+                        ₹0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="total-row">
+
+                    <span>
+                        Discount
+                    </span>
+
+                    <input
+                        type="number"
+                        id="discount"
+                        class="discount-input"
+                        value="0"
+                        min="0"
+                        step="0.01"
+                        oninput="calculateTotals()">
+
+                </div>
+
+
+                <div class="total-row tax-row">
+
+                    <span>
+                        CGST
+                    </span>
+
+                    <strong id="cgst">
+                        ₹0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="total-row tax-row">
+
+                    <span>
+                        SGST
+                    </span>
+
+                    <strong id="sgst">
+                        ₹0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="total-divider"></div>
+
+
+                <div class="grand-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <span id="grandTotal">
+                        ₹0.00
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================
+             ACTION BUTTONS
+        ========================================== -->
+
+        <div class="action-buttons">
+
+            <button
+                class="clear-btn"
+                onclick="clearForm()">
+
+                Clear
+
+            </button>
+
+
+            <button
+                class="generate-btn"
+                onclick="generateInvoice()">
+
+                Generate Invoice
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     GENERATED BILL
+================================================= -->
+
+<div
+    class="invoice-container"
+    id="generatedBill">
+
+
+    <div class="invoice-body">
+
+
+        <div class="generated-header">
+
+            <h2>
+                Invoice Generated
+            </h2>
+
+            <button
+                class="print-btn"
+                onclick="printInvoice()">
+
+                🖨 Print / Save PDF
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="bill-paper"
+            id="billPaper">
+
+            <!-- JavaScript generates bill here -->
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    /* =========================================
+       INVOICE NUMBER
+    ========================================= */
+
+    let invoiceNumber =
+        Number(
+            localStorage.getItem("invoiceNumber")
+        ) || 1001;
+
+
+    /* =========================================
+       DATE
+    ========================================= */
+
+    function setDate() {
+
+        const today = new Date();
+
+        const yyyy =
+            today.getFullYear();
+
+        const mm =
+            String(
+                today.getMonth() + 1
+            ).padStart(2, "0");
+
+        const dd =
+            String(
+                today.getDate()
+            ).padStart(2, "0");
+
+
+        document.getElementById(
+            "invoiceDate"
+        ).value =
+            `${yyyy}-${mm}-${dd}`;
+
+    }
+
+
+    /* =========================================
+       CURRENCY
+    ========================================= */
+
+    function money(value) {
+
+        return "₹" +
+            Number(value).toLocaleString(
+                "en-IN",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
+
+
+    /* =========================================
+       UPDATE HEADER
+    ========================================= */
+
+    function updateHeader() {
+
+        const company =
+            document.getElementById(
+                "companyName"
+            ).value.trim();
+
+
+        document.getElementById(
+            "headerCompany"
+        ).textContent =
+            company || "YOUR COMPANY";
+
+    }
+
+
+    /* =========================================
+       ADD ITEM
+    ========================================= */
+
+    function addItem() {
+
+        const body =
+            document.getElementById(
+                "itemsBody"
+            );
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.className = "item-row";
+
+
+        row.innerHTML = `
+
+            <td>
+
+                <input
+                    type="text"
+                    class="item-name"
+                    placeholder="Item name">
+
+            </td>
+
+
+            <td>
+
+                <input
+                    type="number"
+                    class="item-qty"
+                    value="1"
+                    min="1"
+                    oninput="calculateTotals()">
+
+            </td>
+
+
+            <td>
+
+                <input
+                    type="number"
+                    class="item-rate"
+                    value="0"
+                    min="0"
+                    step="0.01"
+                    oninput="calculateTotals()">
+
+            </td>
+
+
+            <td>
+
+                <select
+                    class="item-gst"
+                    onchange="calculateTotals()">
+
+                    <option value="0">
+                        0%
+                    </option>
+
+                    <option value="5">
+                        5%
+                    </option>
+
+                    <option value="12">
+                        12%
+                    </option>
+
+                    <option value="18" selected>
+                        18%
+                    </option>
+
+                    <option value="28">
+                        28%
+                    </option>
+
+                </select>
+
+            </td>
+
+
+            <td class="amount">
+                ₹0.00
+            </td>
+
+
+            <td>
+
+                <button
+                    class="delete-item"
+                    onclick="deleteItem(this)">
+
+                    ×
+
+                </button>
+
+            </td>
+
+        `;
+
+
+        body.appendChild(row);
+
+    }
+
+
+    /* =========================================
+       DELETE ITEM
+    ========================================= */
+
+    function deleteItem(button) {
+
+        const rows =
+            document.querySelectorAll(
+                ".item-row"
+            );
+
+
+        if (rows.length === 1) {
+
+            alert(
+                "At least one item is required."
+            );
+
+            return;
+        }
+
+
+        button
+            .closest(".item-row")
+            .remove();
+
+
+        calculateTotals();
+
+    }
+
+
+    /* =========================================
+       CALCULATE TOTALS
+    ========================================= */
+
+    function calculateTotals() {
+
+        const rows =
+            document.querySelectorAll(
+                ".item-row"
+            );
+
+
+        let subtotal = 0;
+
+        let totalTax = 0;
+
+
+        rows.forEach(row => {
+
+            const qty =
+                Number(
+                    row.querySelector(
+                        ".item-qty"
+                    ).value
+                ) || 0;
+
+
+            const rate =
+                Number(
+                    row.querySelector(
+                        ".item-rate"
+                    ).value
+                ) || 0;
+
+
+            const gst =
+                Number(
+                    row.querySelector(
+                        ".item-gst"
+                    ).value
+                ) || 0;
+
+
+            const amount =
+                qty * rate;
+
+
+            const tax =
+                amount * gst / 100;
+
+
+            subtotal += amount;
+
+            totalTax += tax;
+
+
+            row.querySelector(
+                ".amount"
+            ).textContent =
+                money(amount);
+
+        });
+
+
+        /* DISCOUNT */
+
+        const discount =
+            Number(
+                document.getElementById(
+                    "discount"
+                ).value
+            ) || 0;
+
+
+        /* TAX AFTER DISCOUNT */
+
+        let taxableAmount =
+            subtotal - discount;
+
+
+        if (taxableAmount < 0) {
+
+            taxableAmount = 0;
+
+        }
+
+
+        /*
+            Calculate effective tax
+            proportionally after discount
+        */
+
+        let adjustedTax = 0;
+
+
+        rows.forEach(row => {
+
+            const qty =
+                Number(
+                    row.querySelector(
+                        ".item-qty"
+                    ).value
+                ) || 0;
+
+
+            const rate =
+                Number(
+                    row.querySelector(
+                        ".item-rate"
+                    ).value
+                ) || 0;
+
+
+            const gst =
+                Number(
+                    row.querySelector(
+                        ".item-gst"
+                    ).value
+                ) || 0;
+
+
+            const itemAmount =
+                qty * rate;
+
+
+            if (subtotal > 0) {
+
+                const discountedItem =
+                    itemAmount *
+                    taxableAmount /
+                    subtotal;
+
+
+                adjustedTax +=
+                    discountedItem *
+                    gst / 100;
+
+            }
+
+        });
+
+
+        const cgst =
+            adjustedTax / 2;
+
+
+        const sgst =
+            adjustedTax / 2;
+
+
+        const total =
+            taxableAmount +
+            adjustedTax;
+
+
+        document.getElementById(
+            "subtotal"
+        ).textContent =
+            money(subtotal);
+
+
+        document.getElementById(
+            "cgst"
+        ).textContent =
+            money(cgst);
+
+
+        document.getElementById(
+            "sgst"
+        ).textContent =
+            money(sgst);
+
+
+        document.getElementById(
+            "grandTotal"
+        ).textContent =
+            money(total);
+
+
+        return {
+
+            subtotal,
+            discount,
+            cgst,
+            sgst,
+            total
+
+        };
+
+    }
+
+
+    /* =========================================
+       GENERATE INVOICE
+    ========================================= */
+
+    function generateInvoice() {
+
+        const company =
+            document.getElementById(
+                "companyName"
+            ).value.trim();
+
+
+        const companyGST =
+            document.getElementById(
+                "companyGST"
+            ).value.trim();
+
+
+        const companyAddress =
+            document.getElementById(
+                "companyAddress"
+            ).value.trim();
+
+
+        const customer =
+            document.getElementById(
+                "customerName"
+            ).value.trim();
+
+
+        const customerGST =
+            document.getElementById(
+                "customerGST"
+            ).value.trim();
+
+
+        const date =
+            document.getElementById(
+                "invoiceDate"
+            ).value;
+
+
+        if (!company) {
+
+            alert(
+                "Please enter company name."
+            );
+
+            return;
+        }
+
+
+        if (!customer) {
+
+            alert(
+                "Please enter customer name."
+            );
+
+            return;
+        }
+
+
+        const rows =
+            document.querySelectorAll(
+                ".item-row"
+            );
+
+
+        let items = [];
+
+
+        rows.forEach(row => {
+
+            const name =
+                row.querySelector(
+                    ".item-name"
+                ).value.trim();
+
+
+            const qty =
+                Number(
+                    row.querySelector(
+                        ".item-qty"
+                    ).value
+                ) || 0;
+
+
+            const rate =
+                Number(
+                    row.querySelector(
+                        ".item-rate"
+                    ).value
+                ) || 0;
+
+
+            const gst =
+                Number(
+                    row.querySelector(
+                        ".item-gst"
+                    ).value
+                ) || 0;
+
+
+            if (name && qty > 0) {
+
+                items.push({
+
+                    name,
+                    qty,
+                    rate,
+                    gst,
+                    amount:
+                        qty * rate
+
+                });
+
+            }
+
+        });
+
+
+        if (items.length === 0) {
+
+            alert(
+                "Please add at least one item."
+            );
+
+            return;
+        }
+
+
+        const totals =
+            calculateTotals();
+
+
+        const invoiceID =
+            "INV-" + invoiceNumber;
+
+
+        document.getElementById(
+            "headerInvoiceNumber"
+        ).textContent =
+            invoiceID;
+
+
+        createBill({
+
+            company,
+            companyGST,
+            companyAddress,
+
+            customer,
+            customerGST,
+
+            date,
+
+            invoiceID,
+
+            items,
+
+            subtotal:
+                totals.subtotal,
+
+            discount:
+                totals.discount,
+
+            cgst:
+                totals.cgst,
+
+            sgst:
+                totals.sgst,
+
+            total:
+                totals.total,
+
+            notes:
+                document.getElementById(
+                    "notes"
+                ).value
+
+        });
+
+
+        /* SAVE */
+
+        localStorage.setItem(
+            "invoiceNumber",
+            invoiceNumber + 1
+        );
+
+
+        invoiceNumber++;
+
+
+        /* SHOW BILL */
+
+        document.getElementById(
+            "invoiceForm"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "generatedBill"
+        ).style.display =
+            "block";
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================================
+       CREATE BILL
+    ========================================= */
+
+    function createBill(data) {
+
+        const paper =
+            document.getElementById(
+                "billPaper"
+            );
+
+
+        const formattedDate =
+            new Date(
+                data.date
+            ).toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                }
+            );
+
+
+        let itemHTML = "";
+
+
+        data.items.forEach(
+            (item, index) => {
+
+                itemHTML += `
+
+                    <tr>
+
+                        <td>
+                            ${index + 1}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                item.name
+                            )}
+                        </td>
+
+                        <td>
+                            ${item.qty}
+                        </td>
+
+                        <td>
+                            ${money(
+                                item.rate
+                            )}
+                        </td>
+
+                        <td>
+                            ${item.gst}%
+                        </td>
+
+                        <td>
+                            ${money(
+                                item.amount
+                            )}
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
+
+
+        paper.innerHTML = `
+
+            <div class="bill-header">
+
+
+                <div class="bill-company">
+
+                    <h1>
+                        ${escapeHTML(
+                            data.company
+                        )}
+                    </h1>
+
+                    <p>
+                        ${escapeHTML(
+                            data.companyAddress ||
+                            ""
+                        )}
+                    </p>
+
+                    <p>
+                        GSTIN:
+                        ${escapeHTML(
+                            data.companyGST ||
+                            "N/A"
+                        )}
+                    </p>
+
+                </div>
+
+
+                <div class="bill-invoice">
+
+                    <h2>
+                        INVOICE
+                    </h2>
+
+                    <p>
+                        ${data.invoiceID}
+                    </p>
+
+                    <p>
+                        ${formattedDate}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="bill-info">
+
+
+                <div>
+
+                    <h4>
+                        Bill From
+                    </h4>
+
+                    <p>
+                        <strong>
+                            ${escapeHTML(
+                                data.company
+                            )}
+                        </strong>
+                    </p>
+
+                    <p>
+                        ${escapeHTML(
+                            data.companyAddress ||
+                            ""
+                        )}
+                    </p>
+
+                    <p>
+                        GSTIN:
+                        ${escapeHTML(
+                            data.companyGST ||
+                            "N/A"
+                        )}
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h4>
+                        Bill To
+                    </h4>
+
+                    <p>
+                        <strong>
+                            ${escapeHTML(
+                                data.customer
+                            )}
+                        </strong>
+                    </p>
+
+                    <p>
+                        Customer GSTIN:
+                        ${escapeHTML(
+                            data.customerGST ||
+                            "N/A"
+                        )}
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <table class="bill-items">
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Item Description</th>
+
+                        <th>Qty</th>
+
+                        <th>Rate</th>
+
+                        <th>GST</th>
+
+                        <th>Amount</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    ${itemHTML}
+
+                </tbody>
+
+            </table>
+
+
+            <div class="bill-summary">
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong>
+                        ${money(
+                            data.subtotal
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Discount
+                    </span>
+
+                    <strong>
+                        - ${money(
+                            data.discount
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        CGST
+                    </span>
+
+                    <strong>
+                        ${money(
+                            data.cgst
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        SGST
+                    </span>
+
+                    <strong>
+                        ${money(
+                            data.sgst
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row summary-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        ${money(
+                            data.total
+                        )}
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="bill-note">
+
+                <strong>
+                    Notes:
+                </strong>
+
+                <br><br>
+
+                ${escapeHTML(
+                    data.notes ||
+                    "Thank you for your business."
+                )}
+
+            </div>
+
+        `;
+
+
+        document.getElementById(
+            "successMessage"
+        ).classList.add("show");
+
+    }
+
+
+    /* =========================================
+       PRINT
+    ========================================= */
+
+    function printInvoice() {
+
+        window.print();
+
+    }
+
+
+    /* =========================================
+       CLEAR
+    ========================================= */
+
+    function clearForm() {
+
+        if (
+            !confirm(
+                "Are you sure you want to clear the invoice?"
+            )
+        ) {
+            return;
+        }
+
+
+        document.getElementById(
+            "companyName"
+        ).value = "";
+
+
+        document.getElementById(
+            "companyGST"
+        ).value = "";
+
+
+        document.getElementById(
+            "companyAddress"
+        ).value = "";
+
+
+        document.getElementById(
+            "customerName"
+        ).value = "";
+
+
+        document.getElementById(
+            "customerGST"
+        ).value = "";
+
+
+        document.getElementById(
+            "discount"
+        ).value = 0;
+
+
+        document.getElementById(
+            "notes"
+        ).value = "";
+
+
+        document.getElementById(
+            "itemsBody"
+        ).innerHTML = `
+
+            <tr class="item-row">
+
+                <td>
+
+                    <input
+                        type="text"
+                        class="item-name"
+                        placeholder="Item name">
+
+                </td>
+
+
+                <td>
+
+                    <input
+                        type="number"
+                        class="item-qty"
+                        value="1"
+                        min="1"
+                        oninput="calculateTotals()">
+
+                </td>
+
+
+                <td>
+
+                    <input
+                        type="number"
+                        class="item-rate"
+                        value="0"
+                        min="0"
+                        step="0.01"
+                        oninput="calculateTotals()">
+
+                </td>
+
+
+                <td>
+
+                    <select
+                        class="item-gst"
+                        onchange="calculateTotals()">
+
+                        <option value="0">
+                            0%
+                        </option>
+
+                        <option value="5">
+                            5%
+                        </option>
+
+                        <option value="12">
+                            12%
+                        </option>
+
+                        <option value="18" selected>
+                            18%
+                        </option>
+
+                        <option value="28">
+                            28%
+                        </option>
+
+                    </select>
+
+                </td>
+
+
+                <td class="amount">
+                    ₹0.00
+                </td>
+
+
+                <td>
+
+                    <button
+                        class="delete-item"
+                        onclick="deleteItem(this)">
+
+                        ×
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+
+        updateHeader();
+
+        calculateTotals();
+
+    }
+
+
+    /* =========================================
+       ESCAPE HTML
+    ========================================= */
+
+    function escapeHTML(text) {
+
+        return String(text)
+
+            .replace(/&/g, "&amp;")
+
+            .replace(/</g, "&lt;")
+
+            .replace(/>/g, "&gt;")
+
+            .replace(/"/g, "&quot;")
+
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================================
+       INITIALIZE
+    ========================================= */
+
+    setDate();
+
+    document.getElementById(
+        "headerInvoiceNumber"
+    ).textContent =
+        "INV-" + invoiceNumber;
+
+    calculateTotals();
+
+</script>
+
+</body>
+
+</html>
