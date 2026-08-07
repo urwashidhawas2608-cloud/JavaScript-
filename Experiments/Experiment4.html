@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Checker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f4f6f8;
+            font-family: Arial, sans-serif;
+        }
+
+        .box {
+            width: 600px;
+            min-height: 430px;
+            padding: 70px 65px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 45px;
+            color: #222;
+        }
+
+        input {
+            width: 100%;
+            height: 60px;
+            padding: 15px 18px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 18px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        button {
+            width: 100%;
+            height: 60px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #result {
+            margin-top: 35px;
+            min-height: 30px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 650px) {
+            .box {
+                width: 90%;
+                padding: 50px 30px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>Palindrome Checker</h1>
+
+        <input
+            type="text"
+            id="input"
+            placeholder="Enter a word or sentence"
+        >
+
+        <button onclick="checkPalindrome()">
+            Check Palindrome
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+    <script>
+
+        let checkCount = 0;
+
+        function cleanText(text) {
+            return text.toLowerCase().replace(/[^a-z0-9]/g, "");
+        }
+
+        const reverseText = function(text) {
+            return text.split("").reverse().join("");
+        };
+
+        const isPalindrome = (text) => {
+            return text === reverseText(text);
+        };
+
+        function createChecker() {
+            let count = 0;
+
+            return function() {
+                count++;
+                return count;
+            };
+        }
+
+        const checker = createChecker();
+
+        function checkPalindrome() {
+
+            try {
+
+                const input = document.getElementById("input").value;
+                const result = document.getElementById("result");
+
+                const text = cleanText(input);
+
+                if (text === "") {
+                    throw new Error("Please enter a word or sentence.");
+                }
+
+                checkCount++;
+                checker();
+
+                if (isPalindrome(text)) {
+                    result.textContent = "✓ It is a palindrome";
+                    result.style.color = "#16a34a";
+                } else {
+                    result.textContent = "✕ It is not a palindrome";
+                    result.style.color = "#dc2626";
+                }
+
+            } catch (error) {
+
+                const result = document.getElementById("result");
+
+                result.textContent = error.message;
+                result.style.color = "#dc2626";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
