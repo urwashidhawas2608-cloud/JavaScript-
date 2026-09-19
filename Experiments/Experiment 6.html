@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JavaScript String & Regex Lab</title>
+
+    <style>
+        /* =====================================================
+           GLOBAL RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --primary-light: #eef2ff;
+
+            --text-main: #172033;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+
+            --background: #f4f7fb;
+            --white: #ffffff;
+
+            --border: #e2e8f0;
+
+            --success: #059669;
+            --success-bg: #ecfdf5;
+
+            --danger: #dc2626;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family:
+                "Inter",
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(79, 70, 229, 0.10),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    rgba(99, 102, 241, 0.08),
+                    transparent 30%
+                ),
+                var(--background);
+
+            color: var(--text-main);
+            padding: 35px 20px;
+        }
+
+
+        /* =====================================================
+           MAIN APPLICATION
+        ===================================================== */
+
+        .app {
+            width: 100%;
+            max-width: 1050px;
+            margin: auto;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border: 1px solid rgba(226, 232, 240, 0.9);
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 60px rgba(15, 23, 42, 0.10),
+                0 8px 20px rgba(15, 23, 42, 0.05);
+        }
+
+
+        /* =====================================================
+           TOP HEADER
+        ===================================================== */
+
+        .header {
+            position: relative;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111827 0%,
+                    #312e81 55%,
+                    #4f46e5 100%
+                );
+
+            color: white;
+
+            padding: 35px 40px;
+        }
+
+        .header::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            right: -80px;
+            top: -120px;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 25px;
+        }
+
+
+        /* LOGO */
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-box {
+            width: 58px;
+            height: 58px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background: rgba(255, 255, 255, 0.13);
+
+            border: 1px solid rgba(255, 255, 255, 0.20);
+
+            backdrop-filter: blur(10px);
+
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .header-title h1 {
+            font-size: 26px;
+            font-weight: 750;
+
+            letter-spacing: -0.6px;
+
+            margin-bottom: 6px;
+        }
+
+        .header-title p {
+            font-size: 13px;
+            color: #c7d2fe;
+
+            line-height: 1.5;
+        }
+
+
+        /* LAB BADGE */
+
+        .lab-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 13px;
+
+            border-radius: 30px;
+
+            background: rgba(255, 255, 255, 0.10);
+
+            border: 1px solid rgba(255, 255, 255, 0.16);
+
+            font-size: 11px;
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+
+            white-space: nowrap;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #34d399;
+
+            box-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+            padding: 35px 40px 40px;
+        }
+
+
+        /* =====================================================
+           STUDENT PROFILE
+        ===================================================== */
+
+        .profile {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px;
+
+            margin-bottom: 35px;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 18px 20px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 15px;
+
+            background: #fafbff;
+
+            transition: 0.25s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-2px);
+
+            border-color: #c7d2fe;
+
+            box-shadow:
+                0 10px 25px rgba(79, 70, 229, 0.07);
+        }
+
+        .profile-icon {
+            width: 44px;
+            height: 44px;
+
+            flex-shrink: 0;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--primary-light);
+
+            color: var(--primary);
+
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .profile-text small {
+            display: block;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            font-weight: 800;
+
+            color: var(--text-light);
+
+            margin-bottom: 4px;
+        }
+
+        .profile-text strong {
+            font-size: 14px;
+
+            color: var(--text-main);
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           SECTION HEADER
+        ===================================================== */
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 17px;
+        }
+
+        .section-icon {
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: var(--primary-light);
+
+            color: var(--primary);
+
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .section-heading h2 {
+            font-size: 18px;
+
+            font-weight: 750;
+
+            color: var(--text-main);
+        }
+
+        .section-heading p {
+            margin-top: 2px;
+
+            font-size: 11px;
+
+            color: var(--text-secondary);
+        }
+
+
+        /* =====================================================
+           INPUT PANEL
+        ===================================================== */
+
+        .input-panel {
+            border: 1px solid var(--border);
+
+            border-radius: 17px;
+
+            padding: 23px;
+
+            background: white;
+
+            box-shadow:
+                0 5px 15px rgba(15, 23, 42, 0.03);
+        }
+
+        .input-label {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 10px;
+        }
+
+        .input-label label {
+            font-size: 12px;
+
+            font-weight: 750;
+
+            color: #334155;
+        }
+
+        .input-label span {
+            font-size: 10px;
+
+            color: var(--text-light);
+        }
+
+        textarea {
+            display: block;
+
+            width: 100%;
+
+            min-height: 145px;
+
+            padding: 16px;
+
+            border-radius: 12px;
+
+            border: 1px solid #dbe1ea;
+
+            background: #f8fafc;
+
+            color: var(--text-main);
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            resize: vertical;
+
+            outline: none;
+
+            transition: 0.25s ease;
+        }
+
+        textarea::placeholder {
+            color: #a1aabd;
+        }
+
+        textarea:focus {
+            background: white;
+
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 4px rgba(79, 70, 229, 0.08);
+        }
+
+
+        /* =====================================================
+           BUTTON
+        ===================================================== */
+
+        .analyze-btn {
+            margin-top: 15px;
+
+            width: 100%;
+
+            padding: 14px 20px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    #6366f1
+                );
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 750;
+
+            letter-spacing: 0.2px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 18px rgba(79, 70, 229, 0.20);
+
+            transition: 0.25s ease;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(79, 70, 229, 0.28);
+        }
+
+        .analyze-btn:active {
+            transform: translateY(0);
+        }
+
+
+        /* =====================================================
+           RESULTS HEADER
+        ===================================================== */
+
+        .results-heading {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 35px;
+
+            margin-bottom: 17px;
+        }
+
+        .results-heading-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .results-heading h2 {
+            font-size: 18px;
+
+            font-weight: 750;
+        }
+
+        .results-heading p {
+            margin-top: 2px;
+
+            font-size: 11px;
+
+            color: var(--text-secondary);
+        }
+
+        .ready-badge {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 7px 11px;
+
+            border-radius: 20px;
+
+            background: var(--success-bg);
+
+            border: 1px solid #bbf7d0;
+
+            color: var(--success);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        /* =====================================================
+           RESULT GRID
+        ===================================================== */
+
+        .results {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+        .result-card {
+            position: relative;
+
+            min-height: 118px;
+
+            padding: 19px;
+
+            border-radius: 14px;
+
+            background: #fafbfc;
+
+            border: 1px solid var(--border);
+
+            overflow: hidden;
+
+            transition: 0.25s ease;
+        }
+
+        .result-card:hover {
+            background: white;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(15, 23, 42, 0.06);
+        }
+
+        .result-card.full {
+            grid-column: span 2;
+        }
+
+        .result-card::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 3px;
+
+            background: var(--primary);
+
+            opacity: 0.8;
+        }
+
+        .result-number {
+            font-size: 10px;
+
+            font-weight: 850;
+
+            color: var(--primary);
+
+            margin-bottom: 8px;
+
+            letter-spacing: 0.5px;
+        }
+
+        .result-title {
+            font-size: 10px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            color: var(--text-light);
+
+            margin-bottom: 7px;
+        }
+
+        .result-value {
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            font-weight: 650;
+
+            color: var(--text-main);
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 30px;
+
+            padding-top: 18px;
+
+            border-top: 1px solid var(--border);
+
+            color: var(--text-light);
+
+            font-size: 10px;
+        }
+
+        .footer strong {
+            color: #64748b;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .header {
+                padding: 25px 22px;
+            }
+
+            .header-content {
+                align-items: flex-start;
+            }
+
+            .header-title h1 {
+                font-size: 21px;
+            }
+
+            .lab-badge {
+                display: none;
+            }
+
+            .content {
+                padding: 25px 20px 30px;
+            }
+
+            .profile {
+                grid-template-columns: 1fr;
+            }
+
+            .results {
+                grid-template-columns: 1fr;
+            }
+
+            .result-card.full {
+                grid-column: span 1;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 7px;
+            }
+        }
+
+
+        @media (max-width: 450px) {
+
+            .logo-box {
+                width: 48px;
+                height: 48px;
+            }
+
+            .header-title h1 {
+                font-size: 18px;
+            }
+
+            .header-title p {
+                font-size: 11px;
+            }
+
+            .content {
+                padding: 20px 15px 25px;
+            }
+
+            .input-panel {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="app">
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="header">
+
+            <div class="header-content">
+
+                <div class="logo">
+
+                    <div class="logo-box">
+                        JS
+                    </div>
+
+                    <div class="header-title">
+
+                        <h1>JavaScript String & Regex Lab</h1>
+
+                        <p>
+                            Text Analysis • String Manipulation • Regular Expressions
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="lab-badge">
+
+                    <span class="live-dot"></span>
+
+                    LAB ENVIRONMENT
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             MAIN CONTENT
+        ================================================== -->
+
+        <main class="content">
+
+
+            <!-- STUDENT DETAILS -->
+
+            <section class="profile">
+
+                <div class="profile-card">
+
+                    <div class="profile-icon">
+                        U
+                    </div>
+
+                    <div class="profile-text">
+
+                        <small>Student Name</small>
+
+                        <strong>Urwashi Dhawas</strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-card">
+
+                    <div class="profile-icon">
+                        #
+                    </div>
+
+                    <div class="profile-text">
+
+                        <small>PRN Number</small>
+
+                        <strong>24070521154</strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 TEXT INPUT
+            ================================================== -->
+
+            <section>
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        01
+                    </div>
+
+                    <div>
+
+                        <h2>Text Analysis</h2>
+
+                        <p>
+                            Enter a sentence or paragraph for processing
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-panel">
+
+                    <div class="input-label">
+
+                        <label for="textInput">
+                            Input Text
+                        </label>
+
+                        <span>
+                            String & Regex Processing
+                        </span>
+
+                    </div>
+
+
+                    <textarea
+                        id="textInput"
+                        rows="5"
+                        placeholder="Example: Hello! Send the report to arya.k@domain.com by tonight. Thanks!"
+                    ></textarea>
+
+
+                    <button
+                        class="analyze-btn"
+                        onclick="processText()"
+                    >
+                        Analyze & Extract Data
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 RESULTS
+            ================================================== -->
+
+            <section>
+
+                <div class="results-heading">
+
+                    <div class="results-heading-left">
+
+                        <div class="section-icon">
+                            02
+                        </div>
+
+                        <div>
+
+                            <h2>Analysis Results</h2>
+
+                            <p>
+                                Processed output from your input text
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="ready-badge">
+
+                        <span class="live-dot"></span>
+
+                        READY
+
+                    </div>
+
+                </div>
+
+
+                <div class="results">
+
+
+                    <!-- EMAIL -->
+
+                    <div class="result-card full">
+
+                        <div class="result-number">
+                            RESULT 01
+                        </div>
+
+                        <div class="result-title">
+                            Extracted Email
+                        </div>
+
+                        <div
+                            class="result-value"
+                            id="emailOut"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <!-- LENGTH -->
+
+                    <div class="result-card">
+
+                        <div class="result-number">
+                            RESULT 02
+                        </div>
+
+                        <div class="result-title">
+                            Text Length
+                        </div>
+
+                        <div
+                            class="result-value"
+                            id="lengthOut"
+                        >
+                            0 characters
+                        </div>
+
+                    </div>
+
+
+                    <!-- WORD COUNT -->
+
+                    <div class="result-card">
+
+                        <div class="result-number">
+                            RESULT 03
+                        </div>
+
+                        <div class="result-title">
+                            Word Count
+                        </div>
+
+                        <div
+                            class="result-value"
+                            id="wordOut"
+                        >
+                            0 words
+                        </div>
+
+                    </div>
+
+
+                    <!-- UPPERCASE -->
+
+                    <div class="result-card full">
+
+                        <div class="result-number">
+                            RESULT 04
+                        </div>
+
+                        <div class="result-title">
+                            Uppercase Format
+                        </div>
+
+                        <div
+                            class="result-value"
+                            id="upperOut"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <!-- LOWERCASE -->
+
+                    <div class="result-card full">
+
+                        <div class="result-number">
+                            RESULT 05
+                        </div>
+
+                        <div class="result-title">
+                            Lowercase Format
+                        </div>
+
+                        <div
+                            class="result-value"
+                            id="lowerOut"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 FOOTER
+            ================================================== -->
+
+            <footer class="footer">
+
+                <span>
+                    JavaScript Laboratory
+                </span>
+
+                <span>
+                    <strong>Urwashi Dhawas</strong>
+                    &nbsp;•&nbsp;
+                    PRN 24070521154
+                </span>
+
+            </footer>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        function processText() {
+
+            // Read original raw string
+            const rawText =
+                document.getElementById('textInput').value;
+
+            const trimmedText =
+                rawText.trim();
+
+
+            // ================================================
+            // REGEX TASK: EMAIL VALIDATION & EXTRACTION
+            // ================================================
+
+            const emailRegex =
+                /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+
+            const foundEmails =
+                trimmedText.match(emailRegex);
+
+
+            if (foundEmails && foundEmails.length > 0) {
+
+                document.getElementById('emailOut').innerText =
+                    "✅ " + foundEmails.join(", ");
+
+            } else {
+
+                document.getElementById('emailOut').innerText =
+                    "❌ No valid email address found.";
+
+            }
+
+
+            // ================================================
+            // STRING FUNCTIONS
+            // ================================================
+
+            // 1. Text Length
+
+            const textLength =
+                rawText.length;
+
+            document.getElementById('lengthOut').innerText =
+                textLength + " characters";
+
+
+            // 2. Word Count
+
+            const wordsArray =
+                trimmedText.split(/\s+/);
+
+            const wordCount =
+                trimmedText === ""
+                    ? 0
+                    : wordsArray.length;
+
+            document.getElementById('wordOut').innerText =
+                wordCount + " words";
+
+
+            // 3. Uppercase
+
+            const uppercaseText =
+                rawText.toUpperCase();
+
+            document.getElementById('upperOut').innerText =
+                uppercaseText || "-";
+
+
+            // 4. Lowercase
+
+            const lowercaseText =
+                rawText.toLowerCase();
+
+            document.getElementById('lowerOut').innerText =
+                lowercaseText || "-";
+
+        }
+
+    </script>
+
+</body>
+</html>
