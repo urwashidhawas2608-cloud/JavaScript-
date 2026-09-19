@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JavaScript Lab - Experiment 7</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background background-one"></div>
+    <div class="background background-two"></div>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="badge">
+                JAVASCRIPT LAB
+            </div>
+
+            <h1>
+                Experiment <span>To-Do List</span>
+            </h1>
+
+            <p class="subtitle">
+                DOM Traversal and Updates
+            </p>
+
+            <div class="student-info">
+
+                <div class="info-box">
+                    <span>STUDENT</span>
+                    <strong>Urwashi Dhawas</strong>
+                </div>
+
+                <div class="info-box">
+                    <span>PRN</span>
+                    <strong>24070521154</strong>
+                </div>
+
+                <div class="info-box">
+                    <span>EXPERIMENT</span>
+                    <strong>07</strong>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PROGRESS -->
+        <div class="card progress-card">
+
+            <div class="progress-top">
+
+                <div>
+                    <p class="label">YOUR PROGRESS</p>
+                    <h2 id="progressText">0 of 7 completed</h2>
+                </div>
+
+                <div id="progressPercent" class="percent">
+                    0%
+                </div>
+
+            </div>
+
+            <div class="progress-bar">
+                <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+
+        <!-- ADD EXPERIMENT -->
+        <div class="card add-card">
+
+            <div class="heading">
+
+                <div class="heading-icon">+</div>
+
+                <div>
+                    <h2>Add Experiment</h2>
+                    <p>Add a new experiment to your list.</p>
+                </div>
+
+            </div>
+
+            <form id="todoForm">
+
+                <input
+                    type="text"
+                    id="todoInput"
+                    placeholder="Enter experiment name..."
+                >
+
+                <button type="submit" class="add-button">
+                    + Add Experiment
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- TODO LIST -->
+        <div class="card todo-card">
+
+            <div class="todo-header">
+
+                <div>
+                    <p class="label">LAB WORK</p>
+                    <h2>My Experiments</h2>
+                </div>
+
+                <div id="taskCount" class="task-count">
+                    7 Tasks
+                </div>
+
+            </div>
+
+            <ul id="todoList"></ul>
+
+            <div id="emptyMessage" class="empty-message">
+
+                <div class="empty-icon">
+                    ✓
+                </div>
+
+                <h3>All experiments completed!</h3>
+
+                <p>Great work. Your laboratory tasks are complete.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- EXPERIMENT INFORMATION -->
+        <div class="card details-card">
+
+            <div class="details-title">
+
+                <div class="details-icon">
+                    ✦
+                </div>
+
+                <div>
+                    <h2>Experiment 7</h2>
+                    <p>DOM Traversal and Updates</p>
+                </div>
+
+            </div>
+
+            <div class="tags">
+                <span>DOM Traversal</span>
+                <span>DOM Updates</span>
+                <span>Add</span>
+                <span>Edit</span>
+                <span>Delete</span>
+            </div>
+
+        </div>
+
+
+        <footer>
+            JavaScript Laboratory • Experiment 7
+        </footer>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,817 @@
+/* =====================================================
+   JAVASCRIPT LAB - EXPERIMENT 7
+   ===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #e85b87;
+    --dark-pink: #c9406b;
+    --light-pink: #fff1f6;
+    --soft-pink: #ffe1eb;
+
+    --text: #35252c;
+    --muted: #927c85;
+
+    --border: #f0d7e1;
+    --green: #48a879;
+
+    --white: #ffffff;
+
+    --shadow: 0 12px 35px rgba(190, 70, 110, 0.10);
+}
+
+
+/* =====================================================
+   BODY
+   ===================================================== */
+
+body {
+    min-height: 100vh;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    background: linear-gradient(
+        135deg,
+        #fff9fb,
+        #fff0f5
+    );
+
+    color: var(--text);
+
+    padding: 25px 30px;
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   BACKGROUND
+   ===================================================== */
+
+.background {
+    position: fixed;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+.background-one {
+    width: 350px;
+    height: 350px;
+
+    background: #ffd9e6;
+
+    top: -170px;
+    right: -100px;
+
+    opacity: 0.6;
+}
+
+.background-two {
+    width: 300px;
+    height: 300px;
+
+    background: #ffe6ee;
+
+    bottom: -160px;
+    left: -120px;
+
+    opacity: 0.7;
+}
+
+
+/* =====================================================
+   MAIN CONTAINER
+   ===================================================== */
+
+.container {
+    width: 100%;
+    max-width: 1050px;
+
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.header {
+    text-align: center;
+
+    margin-bottom: 18px;
+}
+
+.badge {
+    display: inline-block;
+
+    padding: 6px 16px;
+
+    border-radius: 30px;
+
+    background: var(--soft-pink);
+
+    color: var(--dark-pink);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 8px;
+}
+
+.header h1 {
+    font-size: 38px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+}
+
+.header h1 span {
+    color: var(--pink);
+}
+
+.subtitle {
+    margin-top: 6px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   STUDENT INFORMATION
+   ===================================================== */
+
+.student-info {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+.info-box {
+    min-width: 170px;
+
+    padding: 9px 16px;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+}
+
+.info-box span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 3px;
+}
+
+.info-box strong {
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   COMMON CARD
+   ===================================================== */
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 13px;
+}
+
+
+/* =====================================================
+   LABEL
+   ===================================================== */
+
+.label {
+    color: var(--pink);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 3px;
+}
+
+
+/* =====================================================
+   PROGRESS
+   ===================================================== */
+
+.progress-card {
+    padding: 18px 22px;
+}
+
+.progress-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.progress-top h2 {
+    font-size: 17px;
+}
+
+.percent {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--light-pink);
+
+    border: 3px solid var(--soft-pink);
+
+    color: var(--pink);
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+.progress-bar {
+    width: 100%;
+
+    height: 7px;
+
+    margin-top: 13px;
+
+    background: #f7e4ea;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+#progressFill {
+    width: 0%;
+
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #e85b87,
+        #f18eaa
+    );
+
+    border-radius: 20px;
+
+    transition: width 0.4s ease;
+}
+
+
+/* =====================================================
+   ADD EXPERIMENT
+   ===================================================== */
+
+.add-card {
+    padding: 18px 22px;
+}
+
+.heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin-bottom: 12px;
+}
+
+.heading-icon {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: var(--light-pink);
+
+    color: var(--pink);
+
+    font-size: 22px;
+}
+
+.heading h2 {
+    font-size: 17px;
+}
+
+.heading p {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 2px;
+}
+
+
+/* =====================================================
+   FORM
+   ===================================================== */
+
+#todoForm {
+    display: flex;
+
+    gap: 9px;
+}
+
+#todoInput {
+    flex: 1;
+
+    height: 42px;
+
+    padding: 0 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    outline: none;
+
+    background: #fffafd;
+
+    color: var(--text);
+
+    font-size: 12px;
+}
+
+#todoInput:focus {
+    border-color: var(--pink);
+
+    box-shadow: 0 0 0 3px rgba(232, 91, 135, 0.1);
+}
+
+#todoInput::placeholder {
+    color: #b29ca5;
+}
+
+.add-button {
+    height: 42px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: var(--pink);
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.add-button:hover {
+    background: var(--dark-pink);
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   TODO LIST
+   ===================================================== */
+
+.todo-card {
+    padding: 18px 22px;
+}
+
+.todo-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+}
+
+.todo-header h2 {
+    font-size: 19px;
+}
+
+.task-count {
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    background: var(--light-pink);
+
+    color: var(--pink);
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+#todoList {
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+/* =====================================================
+   TODO ITEM
+   ===================================================== */
+
+.todo-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-height: 52px;
+
+    padding: 8px 11px;
+
+    background: #fffafb;
+
+    border: 1px solid #f2e0e6;
+
+    border-radius: 12px;
+
+    transition: 0.2s;
+}
+
+.todo-item:hover {
+    border-color: #e8bdce;
+
+    transform: translateX(2px);
+}
+
+
+/* =====================================================
+   CHECK BUTTON
+   ===================================================== */
+
+.check-button {
+    width: 22px;
+    height: 22px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    border: 2px solid #dfa2b6;
+
+    background: white;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: bold;
+}
+
+.check-button:hover {
+    border-color: var(--pink);
+
+    background: var(--light-pink);
+}
+
+.todo-item.completed .check-button {
+    background: var(--green);
+
+    border-color: var(--green);
+}
+
+
+/* =====================================================
+   TODO CONTENT
+   ===================================================== */
+
+.todo-content {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.experiment-number {
+    color: var(--pink);
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+
+    margin-bottom: 2px;
+}
+
+.todo-title {
+    color: var(--text);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+/* IMPORTANT:
+   NO STRIKETHROUGH */
+
+.todo-item.completed .todo-title {
+    text-decoration: none;
+
+    color: var(--text);
+}
+
+
+/* =====================================================
+   ACTION BUTTONS
+   ===================================================== */
+
+.actions {
+    display: flex;
+
+    gap: 5px;
+}
+
+.action-button {
+    width: 30px;
+    height: 30px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: var(--light-pink);
+
+    color: var(--pink);
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    transition: 0.2s;
+}
+
+.action-button:hover {
+    background: var(--soft-pink);
+
+    transform: translateY(-1px);
+}
+
+.delete-button {
+    color: #d35473;
+}
+
+
+/* =====================================================
+   EMPTY MESSAGE
+   ===================================================== */
+
+.empty-message {
+    display: none;
+
+    text-align: center;
+
+    padding: 30px 10px;
+}
+
+.empty-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 0 auto 10px;
+
+    border-radius: 50%;
+
+    background: var(--light-pink);
+
+    color: var(--green);
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+.empty-message h3 {
+    font-size: 14px;
+
+    margin-bottom: 4px;
+}
+
+.empty-message p {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   EXPERIMENT DETAILS
+   ===================================================== */
+
+.details-card {
+    padding: 16px 22px;
+}
+
+.details-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 10px;
+}
+
+.details-icon {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: var(--light-pink);
+
+    color: var(--pink);
+
+    font-size: 15px;
+}
+
+.details-title h2 {
+    font-size: 14px;
+}
+
+.details-title p {
+    color: var(--muted);
+
+    font-size: 9px;
+
+    margin-top: 1px;
+}
+
+
+/* =====================================================
+   TAGS
+   ===================================================== */
+
+.tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+}
+
+.tags span {
+    padding: 5px 8px;
+
+    border-radius: 20px;
+
+    background: #fff1f5;
+
+    color: #a44c69;
+
+    font-size: 8px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+footer {
+    text-align: center;
+
+    color: #aa929c;
+
+    font-size: 9px;
+
+    padding: 2px 0 8px;
+}
+
+
+/* =====================================================
+   LAPTOP
+   ===================================================== */
+
+@media (min-width: 900px) {
+
+    .container {
+        max-width: 1050px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 650px) {
+
+    body {
+        padding: 20px 12px;
+    }
+
+    .header h1 {
+        font-size: 30px;
+    }
+
+    .student-info {
+        flex-direction: column;
+    }
+
+    .info-box {
+        width: 100%;
+    }
+
+    #todoForm {
+        flex-direction: column;
+    }
+
+    .add-button {
+        width: 100%;
+    }
+
+    .todo-item {
+        align-items: center;
+    }
+}
