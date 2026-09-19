@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glam Vault — Beauty Cart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="glitter-field" id="glitterField" aria-hidden="true"></div>
+
+<header class="site-head">
+  <div class="head-inner">
+    <p class="eyebrow">✦ members-first pricing ✦</p>
+    <h1 class="wordmark">Glam Vault</h1>
+    <p class="tagline">beauty edit — cart &amp; total calculator</p>
+  </div>
+  <div class="head-shine"></div>
+</header>
+
+<main class="layout">
+
+  <section class="shelf" aria-label="Products">
+    <div class="shelf-label">
+      <span class="shelf-num">05 pieces</span>
+      <h2>The Edit</h2>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <aside class="vault" aria-label="Your cart">
+    <div class="vault-inner">
+      <div class="vault-head">
+        <h2>Your Cart</h2>
+        <span class="vault-count" id="cartCount">0 items</span>
+      </div>
+
+      <ul class="cart-list" id="cartList">
+        <li class="cart-empty" id="cartEmpty">Your cart is feeling a little bare. Add something sparkly ✦</li>
+      </ul>
+
+      <div class="coupon-row">
+        <input type="text" id="couponInput" placeholder="Have a code? e.g. GLAM10" autocomplete="off">
+        <button id="couponButton" type="button" class="btn-ghost">Apply</button>
+      </div>
+      <p class="coupon-msg" id="couponMessage"></p>
+
+      <div class="tier-note" id="tierNote"></div>
+
+      <div class="totals">
+        <div class="total-row">
+          <span>Subtotal</span>
+          <span id="subtotal">₹0.00</span>
+        </div>
+        <div class="total-row discount-row" id="discountRow" style="display:none;">
+          <span>Discount</span>
+          <span id="discount">-₹0.00</span>
+        </div>
+        <div class="total-row">
+          <span>Delivery</span>
+          <span id="delivery">₹0.00</span>
+        </div>
+        <div class="total-row grand-row">
+          <span>Total</span>
+          <span id="grandTotal">₹0.00</span>
+        </div>
+      </div>
+
+      <button class="btn-checkout" id="checkoutButton" type="button">Checkout ✦</button>
+      <p class="fineprint">Free delivery on carts over ₹999 · Coupons: GLAM10, BEAUTY20</p>
+    </div>
+  </aside>
+
+</main>
+
+<footer class="site-foot">
+  <p>Glam Vault — a little sparkle, a lot of savings</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
