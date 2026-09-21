@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JSON Data Display</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: #4f46e5;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .logo h3 {
+            font-size: 18px;
+            color: #111827;
+        }
+
+        .logo p {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 3px;
+        }
+
+        .badge {
+            background: #eef2ff;
+            color: #4f46e5;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            margin-bottom: 25px;
+        }
+
+        .intro h1 {
+            font-size: 30px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .intro p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .controls-text h3 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .controls-text p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            padding: 11px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .primary-btn {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .primary-btn:hover {
+            background: #4338ca;
+        }
+
+        .secondary-btn {
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+        }
+
+        .secondary-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8fafc;
+            color: #475569;
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 14px 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 15px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            color: #334155;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .id {
+            color: #4f46e5;
+            font-weight: bold;
+        }
+
+        .name {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .prn {
+            font-family: monospace;
+            color: #64748b;
+        }
+
+        .status {
+            margin-top: 18px;
+            padding: 12px 15px;
+            background: #f0fdf4;
+            color: #15803d;
+            border-radius: 8px;
+            font-size: 13px;
+            border: 1px solid #dcfce7;
+        }
+
+        footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 700px) {
+
+            .header {
+                padding: 15px 20px;
+            }
+
+            .badge {
+                display: none;
+            }
+
+            .container {
+                margin: 30px auto;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .intro h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <header class="header">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                JS
+            </div>
+
+            <div>
+                <h3>JSON Data Viewer</h3>
+                <p>JavaScript & jQuery Experiment</p>
+            </div>
+
+        </div>
+
+        <div class="badge">
+            JSON DATA
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <div class="intro">
+
+            <h1>Student Information</h1>
+
+            <p>
+                Load and display student data using JavaScript
+                Fetch API and jQuery.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="controls">
+
+                <div class="controls-text">
+
+                    <h3>Student Records</h3>
+
+                    <p>
+                        Select a method to load the JSON data.
+                    </p>
+
+                </div>
+
+
+                <div class="buttons">
+
+                    <button
+                        class="primary-btn"
+                        onclick="loadWithFetch()">
+
+                        Load using Fetch
+
+                    </button>
+
+
+                    <button
+                        class="secondary-btn"
+                        onclick="loadWithJSON()">
+
+                        Load using jQuery
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Student Name</th>
+                            <th>PRN</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="tableBody">
+
+                        <tr>
+
+                            <td colspan="3"
+                                style="text-align:center; color:#94a3b8; padding:30px;">
+
+                                Click a button above to load student data.
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="status" id="status">
+
+                Ready to load JSON data.
+
+            </div>
+
+        </div>
+
+
+        <footer>
+
+            JSON Data Display • Fetch API & jQuery
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        // JSON DATA
+        // Urwashi Dhawas is kept at the top.
+
+        let studentData = [
+
+            {
+                "id": 1,
+                "name": "Urwashi Dhawas",
+                "prn": "24070521154"
+            },
+
+            {
+                "id": 2,
+                "name": "Aarav Kulkarni",
+                "prn": "24070521031"
+            },
+
+            {
+                "id": 3,
+                "name": "Ananya Patil",
+                "prn": "24070521047"
+            },
+
+            {
+                "id": 4,
+                "name": "Rohan Deshmukh",
+                "prn": "24070521068"
+            },
+
+            {
+                "id": 5,
+                "name": "Meera Joshi",
+                "prn": "24070521082"
+            },
+
+            {
+                "id": 6,
+                "name": "Aditya Sharma",
+                "prn": "24070521109"
+            }
+
+        ];
+
+
+        // DISPLAY DATA IN TABLE
+        function displayData(data) {
+
+            let tableBody =
+                document.getElementById("tableBody");
+
+            tableBody.innerHTML = "";
+
+
+            data.forEach(function(student) {
+
+                let row =
+                    document.createElement("tr");
+
+
+                row.innerHTML =
+
+                    "<td class='id'>" +
+                    student.id +
+                    "</td>" +
+
+                    "<td class='name'>" +
+                    student.name +
+                    "</td>" +
+
+                    "<td class='prn'>" +
+                    student.prn +
+                    "</td>";
+
+
+                tableBody.appendChild(row);
+
+            });
+
+
+            document.getElementById("status").innerText =
+                data.length +
+                " student records loaded successfully.";
+
+        }
+
+
+        // FETCH API
+        function loadWithFetch() {
+
+            let jsonFile = new Blob(
+
+                [JSON.stringify(studentData)],
+
+                {
+                    type: "application/json"
+                }
+
+            );
+
+
+            let url =
+                URL.createObjectURL(jsonFile);
+
+
+            fetch(url)
+
+                .then(function(response) {
+
+                    return response.json();
+
+                })
+
+                .then(function(data) {
+
+                    displayData(data);
+
+                })
+
+                .catch(function(error) {
+
+                    console.log("Error:", error);
+
+                    document.getElementById("status").innerText =
+                        "Error loading JSON data.";
+
+                });
+
+        }
+
+
+        // JQUERY getJSON()
+        function loadWithJSON() {
+
+            let jsonFile = new Blob(
+
+                [JSON.stringify(studentData)],
+
+                {
+                    type: "application/json"
+                }
+
+            );
+
+
+            let url =
+                URL.createObjectURL(jsonFile);
+
+
+            $.getJSON(
+
+                url,
+
+                function(data) {
+
+                    displayData(data);
+
+                }
+
+            ).fail(function() {
+
+                console.log("Error loading JSON");
+
+                document.getElementById("status").innerText =
+                    "Error loading JSON data.";
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>
