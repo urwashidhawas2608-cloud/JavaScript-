@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventora — Discover What's Next</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">e</span> eventora<span class="brand-dot">.</span></a>
+    <nav><a href="#discover">Discover</a><a href="#my-events">My events <span id="nav-count" class="nav-count">0</span></a></nav>
+    <button class="btn btn-outline" id="host-btn">＋ Host an event</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> YOUR NEXT BIG THING STARTS HERE</div>
+        <h1>Find your people.<br><span>Build something</span><br>remarkable.</h1>
+        <p class="hero-text">Hackathons, tech meetups, creative workshops and experiences worth showing up for.</p>
+        <a href="#discover" class="btn btn-primary">Explore events <span>↗</span></a>
+        <div class="hero-social"><div class="avatar-stack"><span>U</span><span>A</span><span>R</span><span>+</span></div><div><strong id="community-count">2,400+</strong><small>curious minds and makers</small></div></div>
+      </div>
+      <div class="hero-art">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="hero-card card-main"><div class="mini-label">FEATURED EXPERIENCE</div><div class="hero-symbol">✳</div><div class="hero-card-bottom"><div><small>24-HOUR BUILD SPRINT</small><h3>Hack the Future</h3></div><span class="arrow-circle">↗</span></div></div>
+        <div class="float-tag tag-top"><span class="tag-icon">⌘</span><div><b>Build together</b><small>Ideas → impact</small></div></div>
+        <div class="float-tag tag-bottom"><span class="live-dot"></span><div><b>Good energy only</b><small>Find your community</small></div></div>
+        <div class="spark spark-one">✦</div><div class="spark spark-two">✳</div>
+      </div>
+    </section>
+
+    <section class="stats-strip">
+      <div><strong>120<span>+</span></strong><small>Curated events</small></div><div><strong>35</strong><small>Communities</small></div><div><strong>18<span>k</span></strong><small>People inspired</small></div><div class="stats-note">Less scrolling.<br><b>More doing.</b></div>
+    </section>
+
+    <section id="discover" class="events-section">
+      <div class="section-heading"><div><div class="eyebrow">THE GOOD STUFF</div><h2>Explore what’s happening<span>.</span></h2><p>Find a room full of people who are into what you're into.</p></div><div class="view-label"><span class="view-dot"></span> Freshly curated</div></div>
+      <div class="filters">
+        <div class="search-wrap"><span>⌕</span><input id="search-input" type="search" placeholder="Search events, topics, locations..."></div>
+        <div class="filter-pills" id="category-filters">
+          <button class="filter active" data-category="All">All events</button>
+          <button class="filter" data-category="Hackathon">Hackathons</button>
+          <button class="filter" data-category="Workshop">Workshops</button>
+          <button class="filter" data-category="Meetup">Meetups</button>
+          <button class="filter" data-category="Conference">Conferences</button>
+        </div>
+        <select id="sort-select" aria-label="Sort events"><option value="soon">Soonest first</option><option value="name">Name A–Z</option></select>
+      </div>
+      <div id="event-status" class="status-line">Loading events…</div>
+      <div id="event-grid" class="event-grid"></div>
+      <div id="empty-state" class="empty-state hidden"><div>◌</div><h3>No events found</h3><p>Try a different search or category.</p><button class="btn btn-outline" id="clear-filters">Clear filters</button></div>
+    </section>
+
+    <section id="my-events" class="my-events-section">
+      <div class="section-heading"><div><div class="eyebrow">YOUR LINEUP</div><h2>Events you’re into<span>.</span></h2><p>Your saved registrations stay here on this device.</p></div><div class="saved-counter"><span id="saved-count">0</span> saved</div></div>
+      <div id="my-events-list" class="my-events-list"><div class="empty-saved">No registrations yet. Find an event that sparks something ✨</div></div>
+    </section>
+
+    <section class="cta-band"><div><div class="eyebrow">GOT AN IDEA?</div><h2>Make it a gathering.</h2><p>Bring your community together. Your next event could start here.</p></div><button class="btn btn-light" id="cta-host-btn">Create an event <span>↗</span></button><div class="cta-decoration">✳</div></section>
+  </main>
+
+  <footer><a class="brand" href="#"><span class="brand-mark">e</span> eventora<span class="brand-dot">.</span></a><span>Made for curious minds. © 2026 Eventora</span><a href="#discover">Back to top ↑</a></footer>
+
+  <div class="modal-backdrop hidden" id="register-modal">
+    <div class="modal">
+      <button class="modal-close" data-close="register-modal" aria-label="Close">×</button>
+      <div class="eyebrow">SAVE YOUR SPOT</div><h2 id="modal-title">Join the experience.</h2><p id="modal-description">A few details and you're in.</p>
+      <form id="registration-form">
+        <input type="hidden" id="modal-event-id">
+        <label for="attendee-name">Your name</label><input id="attendee-name" required placeholder="e.g. Alex Morgan">
+        <label for="attendee-email">Email address</label><input id="attendee-email" type="email" required placeholder="you@example.com">
+        <button class="btn btn-primary full-width" type="submit">Confirm registration <span>↗</span></button>
+      </form>
+      <p class="fine-print">Demo project: registration is saved locally in your browser.</p>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="host-modal">
+    <div class="modal">
+      <button class="modal-close" data-close="host-modal" aria-label="Close">×</button>
+      <div class="eyebrow">BRING PEOPLE TOGETHER</div><h2>Host your own event.</h2><p>Draft an event and add it to this page.</p>
+      <form id="host-form">
+        <label for="host-title">Event name</label><input id="host-title" required placeholder="e.g. Build Night">
+        <div class="form-row"><div><label for="host-category">Category</label><select id="host-category"><option>Hackathon</option><option>Workshop</option><option>Meetup</option><option>Conference</option></select></div><div><label for="host-date">Date</label><input id="host-date" type="date" required></div></div>
+        <label for="host-location">Location</label><input id="host-location" required placeholder="City or Online">
+        <label for="host-description">Short description</label><textarea id="host-description" required rows="3" placeholder="What will people experience?"></textarea>
+        <button class="btn btn-primary full-width" type="submit">Publish event <span>↗</span></button>
+      </form>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
