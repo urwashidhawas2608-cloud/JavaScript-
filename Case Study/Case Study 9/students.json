@@ -1,0 +1,8 @@
+{
+  "students": [
+    { "id": "24070521154", "name": "Urwashi Dhawas", "course": "B.Tech CSE", "email": "urwashi.dhawas@example.com", "date": "2026-11-11", "status": "Done", "payment": "Paid" },
+    { "id": "STU001", "name": "Neha Verma", "course": "B.Tech CSE", "email": "neha@example.com", "date": "2026-10-07", "status": "Done", "payment": "Paid" },
+    { "id": "STU002", "name": "Rahul Sharma", "course": "B.Tech AIML", "email": "rahul@example.com", "date": "2026-10-07", "status": "Pending", "payment": "Pending" },
+    { "id": "STU003", "name": "Priya Singh", "course": "B.Tech CSE", "email": "priya@example.com", "date": "2026-10-06", "status": "Cancelled", "payment": "Refunded" }
+  ]
+}
