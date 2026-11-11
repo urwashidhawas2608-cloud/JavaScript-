@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Arrays & Loops</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="badge">JavaScript Practical</div>
+    <h1>Arrays & Loops in JavaScript</h1>
+    <p>Explore array manipulation, array methods, loops, and the maximum/minimum case study.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Case Study</span>
+          <h2>Find Maximum & Minimum</h2>
+        </div>
+        <span class="array-tag">[25, 10, 45, 5, 30, 15]</span>
+      </div>
+
+      <div class="case-grid">
+        <div class="array-box">
+          <h3>Array</h3>
+          <div id="caseArray" class="array-display"></div>
+          <button id="caseStudyBtn" class="primary-btn">Find Max & Min</button>
+        </div>
+        <div class="result-box">
+          <div class="result-item">
+            <span>Maximum Value</span>
+            <strong id="maxValue">—</strong>
+          </div>
+          <div class="result-item">
+            <span>Minimum Value</span>
+            <strong id="minValue">—</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Task A</span>
+          <h2>Create & Manipulate Arrays</h2>
+          <p>Try push(), pop(), shift(), unshift(), splice(), and slice().</p>
+        </div>
+      </div>
+
+      <div class="array-workspace">
+        <div class="current-array">
+          <h3>Current Array</h3>
+          <div id="currentArray" class="array-display"></div>
+          <button id="resetBtn" class="secondary-btn">Reset Array</button>
+        </div>
+
+        <div class="controls">
+          <div class="control-group">
+            <label for="valueInput">Value</label>
+            <input id="valueInput" type="text" placeholder="e.g. 50">
+          </div>
+
+          <div class="button-grid">
+            <button data-action="push">push()</button>
+            <button data-action="pop">pop()</button>
+            <button data-action="shift">shift()</button>
+            <button data-action="unshift">unshift()</button>
+            <button data-action="splice">splice()</button>
+            <button data-action="slice">slice()</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="operationOutput" class="output">
+        Select an operation to see the result.
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Task B</span>
+          <h2>Array Methods</h2>
+          <p>Use map(), filter(), reduce(), and forEach() on the current array.</p>
+        </div>
+      </div>
+
+      <div class="method-grid">
+        <button data-method="map">map() — Double Values</button>
+        <button data-method="filter">filter() — Values &gt; 20</button>
+        <button data-method="reduce">reduce() — Sum</button>
+        <button data-method="forEach">forEach() — Display Values</button>
+      </div>
+
+      <div id="methodOutput" class="output">
+        Select an array method to see the result.
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Loops</span>
+          <h2>Loops in JavaScript</h2>
+          <p>Run the same array through for, while, and do...while loops.</p>
+        </div>
+      </div>
+
+      <div class="loop-grid">
+        <button data-loop="for">for loop</button>
+        <button data-loop="while">while loop</button>
+        <button data-loop="doWhile">do...while loop</button>
+      </div>
+
+      <div id="loopOutput" class="output">
+        Select a loop to see its output.
+      </div>
+    </section>
+
+    <section class="card reference-card">
+      <span class="eyebrow">Quick Reference</span>
+      <h2>Functions Included</h2>
+      <div class="reference-grid">
+        <div><code>push()</code><span>Adds at the end</span></div>
+        <div><code>pop()</code><span>Removes from the end</span></div>
+        <div><code>shift()</code><span>Removes from the beginning</span></div>
+        <div><code>unshift()</code><span>Adds at the beginning</span></div>
+        <div><code>splice()</code><span>Adds/removes at an index</span></div>
+        <div><code>slice()</code><span>Copies a selected portion</span></div>
+        <div><code>map()</code><span>Transforms each value</span></div>
+        <div><code>filter()</code><span>Selects matching values</span></div>
+        <div><code>reduce()</code><span>Combines values into one result</span></div>
+        <div><code>forEach()</code><span>Runs a function for every value</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    JavaScript Arrays & Loops Practical
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
