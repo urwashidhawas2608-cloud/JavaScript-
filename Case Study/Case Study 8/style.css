@@ -1,0 +1,169 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eef3f8;
+    color: #263238;
+    padding: 35px 15px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    border-radius: 12px;
+    padding: 35px 45px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+h1 {
+    text-align: center;
+    color: #173f6b;
+    margin-bottom: 8px;
+}
+
+.intro {
+    text-align: center;
+    color: #666;
+    margin-bottom: 35px;
+    font-size: 14px;
+}
+
+h2 {
+    color: #173f6b;
+    font-size: 20px;
+    margin: 28px 0 18px;
+    padding-left: 10px;
+    border-left: 4px solid #2878c8;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+label span {
+    color: red;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5df;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    background: white;
+}
+
+textarea {
+    height: 90px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #2878c8;
+    box-shadow: 0 0 4px rgba(40, 120, 200, 0.25);
+}
+
+.valid {
+    border-color: #249b5c;
+}
+
+.invalid {
+    border-color: #d93025;
+}
+
+small {
+    display: block;
+    color: #d93025;
+    font-size: 12px;
+    margin-top: 4px;
+    min-height: 15px;
+}
+
+#success {
+    display: none;
+    background: #e7f7ed;
+    color: #18743e;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 15px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+button {
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.reset {
+    background: #e5e9ee;
+    color: #333;
+}
+
+.reset:hover {
+    background: #d5dbe2;
+}
+
+.submit {
+    background: #173f6b;
+    color: white;
+}
+
+.submit:hover {
+    background: #0e2f52;
+}
+
+@media (max-width: 700px) {
+    .container {
+        padding: 25px 20px;
+    }
+
+    .row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
