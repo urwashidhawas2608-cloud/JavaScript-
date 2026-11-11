@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClassFlow | Smart Class Scheduler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#">
+        <span class="brand-icon">✿</span>
+        <span>classflow<small>SMART SCHEDULER</small></span>
+      </a>
+
+      <p class="nav-label">WORKSPACE</p>
+      <a class="nav-link active" href="#dashboard"><span>▦</span> Dashboard</a>
+      <a class="nav-link" href="#schedule"><span>▤</span> My Schedule</a>
+
+      <div class="sidebar-bottom">
+        <div class="tip-card">
+          <span class="tip-icon">✦</span>
+          <h3>Stay on track</h3>
+          <p>Small steps today, big achievements tomorrow.</p>
+        </div>
+        <div class="profile">
+          <div class="avatar">CF</div>
+          <div><strong>My Workspace</strong><small>Student planner</small></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="today-label">YOUR PERSONAL PLANNER</p>
+          <h1>Good to see you <span>♡</span></h1>
+          <p class="subtitle">A little planning goes a long way. Let's make today count.</p>
+        </div>
+        <button class="primary-btn" id="add-class-btn"><span>＋</span> Add a class</button>
+      </header>
+
+      <section class="welcome-banner">
+        <div class="banner-copy">
+          <span class="banner-tag">YOUR DAY, ORGANIZED</span>
+          <h2>Make room for<br>what matters.</h2>
+          <p>Keep your classes in one place and stay one step ahead.</p>
+          <button class="banner-btn" id="banner-add-btn">Plan a class <span>→</span></button>
+        </div>
+        <div class="banner-art" aria-hidden="true">
+          <div class="art-circle circle-one"></div>
+          <div class="art-circle circle-two"></div>
+          <div class="art-calendar">
+            <div class="calendar-top">YOUR WEEK ♡</div>
+            <div class="calendar-grid">
+              <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+              <b>12</b><b>13</b><b class="picked">14</b><b>15</b><b>16</b><b>17</b><b>18</b>
+            </div>
+            <div class="art-note">✦ You've got this!</div>
+          </div>
+          <span class="floating-star star-one">✦</span>
+          <span class="floating-star star-two">✿</span>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-top"><span>Total classes</span><span class="stat-icon pink">▤</span></div>
+          <div class="stat-number" id="total-classes">0</div>
+          <p>Classes on your schedule</p>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Upcoming</span><span class="stat-icon purple">◷</span></div>
+          <div class="stat-number" id="upcoming-classes">0</div>
+          <p>Still waiting for you</p>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Completed</span><span class="stat-icon green">✓</span></div>
+          <div class="stat-number" id="completed-classes">0</div>
+          <p>Classes finished today</p>
+        </article>
+      </section>
+
+      <section class="countdown-card">
+        <div class="countdown-left">
+          <div class="countdown-symbol">◷</div>
+          <div>
+            <p class="eyebrow light-eyebrow">COMING UP NEXT</p>
+            <h2 id="next-class-name">Your next class awaits</h2>
+            <p id="next-class-meta">Add a class to start your schedule.</p>
+          </div>
+        </div>
+        <div class="countdown-right">
+          <p>STARTS IN</p>
+          <div class="timer" id="countdown">--:--:--</div>
+        </div>
+      </section>
+
+      <section class="schedule-section" id="schedule">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">YOUR PERSONAL TIMETABLE</p>
+            <h2>Today's schedule <span>✿</span></h2>
+          </div>
+          <span class="date-pill" id="date-pill"></span>
+        </div>
+
+        <div id="schedule-list" class="schedule-list"></div>
+
+        <div class="empty-state" id="empty-state">
+          <div class="empty-illustration">♡</div>
+          <h3>Your schedule is a blank canvas</h3>
+          <p>Add your first class and start organizing your day.</p>
+          <button class="primary-btn" id="empty-add-btn">＋ Add your first class</button>
+        </div>
+      </section>
+
+      <footer>Made with <span>♥</span> for a more organized day.</footer>
+    </main>
+  </div>
+
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">BUILD YOUR TIMETABLE</p>
+          <h2 id="modal-title">Add a new class <span>♡</span></h2>
+          <p class="modal-subtitle">Fill in the details to add it to your schedule.</p>
+        </div>
+        <button class="close-btn" type="button" id="close-modal" aria-label="Close">×</button>
+      </div>
+
+      <form id="class-form">
+        <label for="subject">Subject name</label>
+        <input id="subject" name="subject" type="text" placeholder="e.g. Data Structures" maxlength="60" required>
+
+        <div class="form-row">
+          <div>
+            <label for="class-time">Start time</label>
+            <input id="class-time" name="time" type="time" required>
+          </div>
+          <div>
+            <label for="class-duration">Duration</label>
+            <select id="class-duration" name="duration" required>
+              <option value="30">30 minutes</option>
+              <option value="45">45 minutes</option>
+              <option value="60" selected>1 hour</option>
+              <option value="90">1.5 hours</option>
+              <option value="120">2 hours</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="class-room">Room / location</label>
+        <input id="class-room" name="room" type="text" placeholder="e.g. Lab 204 or Room A" maxlength="50" required>
+
+        <div class="modal-actions">
+          <button class="secondary-btn" type="button" id="cancel-modal">Cancel</button>
+          <button class="primary-btn submit-btn" type="submit">Add to schedule <span>→</span></button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
