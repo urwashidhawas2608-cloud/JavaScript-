@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "Hack the Future",
+    "category": "Hackathon",
+    "date": "2026-11-14",
+    "location": "Mumbai, India",
+    "description": "A 24-hour build sprint for bold ideas, brilliant teammates and prototypes that could change everything.",
+    "attendees": "320+ makers",
+    "format": "In person",
+    "palette": "purple"
+  },
+  {
+    "id": 2,
+    "title": "AI for Everyone",
+    "category": "Workshop",
+    "date": "2026-11-06",
+    "location": "Online",
+    "description": "Explore practical AI tools, prompt design and responsible ways to turn everyday problems into useful projects.",
+    "attendees": "180+ registered",
+    "format": "Online",
+    "palette": "green"
+  },
+  {
+    "id": 3,
+    "title": "Design After Dark",
+    "category": "Meetup",
+    "date": "2026-11-20",
+    "location": "Pune, India",
+    "description": "An informal evening for designers and developers to share experiments, feedback and the ideas in progress.",
+    "attendees": "90+ creatives",
+    "format": "In person",
+    "palette": "orange"
+  },
+  {
+    "id": 4,
+    "title": "FutureTech Summit",
+    "category": "Conference",
+    "date": "2026-12-04",
+    "location": "Bengaluru, India",
+    "description": "A one-day gathering on emerging technology, startup stories, product thinking and the future of work.",
+    "attendees": "600+ attendees",
+    "format": "In person",
+    "palette": "blue"
+  },
+  {
+    "id": 5,
+    "title": "Build with JavaScript",
+    "category": "Workshop",
+    "date": "2026-11-11",
+    "location": "Online",
+    "description": "Go from browser basics to interactive mini-projects with hands-on DOM, events and API exercises.",
+    "attendees": "140+ learners",
+    "format": "Online",
+    "palette": "pink"
+  },
+  {
+    "id": 6,
+    "title": "Climate Code Jam",
+    "category": "Hackathon",
+    "date": "2026-12-12",
+    "location": "Online",
+    "description": "Collaborate on technology ideas for sustainability, greener cities and a more thoughtful digital future.",
+    "attendees": "210+ builders",
+    "format": "Online",
+    "palette": "yellow"
+  }
+]
