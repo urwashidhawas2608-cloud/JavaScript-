@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Job Application Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Online Job Application Form</h1>
+
+        <p class="intro">
+            Please fill in the following details carefully. All required fields must be valid.
+        </p>
+
+        <form id="jobForm">
+
+            <!-- Personal Information -->
+            <h2>Personal Information</h2>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Full Name <span>*</span></label>
+                    <input type="text" id="name" placeholder="Enter full name">
+                    <small id="nameError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Date of Birth <span>*</span></label>
+                    <input type="date" id="dob">
+                    <small id="dobError"></small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Gender <span>*</span></label>
+                    <select id="gender">
+                        <option value="">Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                    <small id="genderError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Email <span>*</span></label>
+                    <input type="email" id="email" placeholder="example@gmail.com">
+                    <small id="emailError"></small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Mobile Number <span>*</span></label>
+                    <input type="text" id="mobile" maxlength="10"
+                        placeholder="10 digit mobile number">
+                    <small id="mobileError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Address <span>*</span></label>
+                    <input type="text" id="address" placeholder="Enter address">
+                    <small id="addressError"></small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>City / State <span>*</span></label>
+                    <input type="text" id="city" placeholder="Enter city and state">
+                    <small id="cityError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>PIN Code <span>*</span></label>
+                    <input type="text" id="pin" maxlength="6"
+                        placeholder="6 digit PIN">
+                    <small id="pinError"></small>
+                </div>
+            </div>
+
+            <!-- Educational Qualification -->
+            <h2>Educational Qualification</h2>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Highest Qualification <span>*</span></label>
+                    <select id="qualification">
+                        <option value="">Select Qualification</option>
+                        <option>10th</option>
+                        <option>12th</option>
+                        <option>Diploma</option>
+                        <option>Bachelor's Degree</option>
+                        <option>Master's Degree</option>
+                        <option>PhD</option>
+                    </select>
+                    <small id="qualificationError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>University / Institute <span>*</span></label>
+                    <input type="text" id="university"
+                        placeholder="Enter university / institute">
+                    <small id="universityError"></small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Passing Year <span>*</span></label>
+                    <input type="number" id="passingYear"
+                        placeholder="YYYY">
+                    <small id="passingYearError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Percentage / CGPA <span>*</span></label>
+                    <input type="text" id="percentage"
+                        placeholder="e.g. 85% / 8.5 CGPA">
+                    <small id="percentageError"></small>
+                </div>
+            </div>
+
+            <!-- Professional Information -->
+            <h2>Professional Information</h2>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Applying For / Job Position <span>*</span></label>
+                    <input type="text" id="position"
+                        placeholder="e.g. Software Developer">
+                    <small id="positionError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Total Work Experience <span>*</span></label>
+                    <select id="experience">
+                        <option value="">Select Experience</option>
+                        <option>Fresher</option>
+                        <option>Less than 1 year</option>
+                        <option>1 - 2 years</option>
+                        <option>2 - 5 years</option>
+                        <option>5+ years</option>
+                    </select>
+                    <small id="experienceError"></small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Current / Previous Organization</label>
+                    <input type="text" id="organization"
+                        placeholder="Organization name">
+                </div>
+
+                <div class="form-group">
+                    <label>Current Designation</label>
+                    <input type="text" id="designation"
+                        placeholder="Designation">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Expected Salary</label>
+                <input type="text" id="salary"
+                    placeholder="e.g. ₹5 LPA">
+            </div>
+
+            <!-- Technical Skills -->
+            <h2>Technical Skills</h2>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Programming Languages <span>*</span></label>
+                    <input type="text" id="languages"
+                        placeholder="Python, Java, C++, etc.">
+                    <small id="languagesError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Technical Skills <span>*</span></label>
+                    <input type="text" id="skills"
+                        placeholder="HTML, CSS, SQL, ML, etc.">
+                    <small id="skillsError"></small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Certifications</label>
+                <textarea id="certifications"
+                    placeholder="Enter your certifications"></textarea>
+            </div>
+
+            <div id="success"></div>
+
+            <div class="buttons">
+                <button type="reset" class="reset">Reset</button>
+                <button type="submit" class="submit">Submit Application</button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
